@@ -33,10 +33,17 @@ button{
     font-weight:300;
     color:#c21c1c;
     text-align:center;
-    font-size: 15px;
+    font-size: 15px;    
 }
 
 button:hover{
     color:#000000;
     background-color:#FFFFFF;
+    transform: scale(1.2);
+}
+
+button:focus:not(#clear){
+    background-color: black;
+    color: white;
+    transform: scale(1.1);
 }
