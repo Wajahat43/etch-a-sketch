@@ -69,7 +69,7 @@ function assignRandomRGB(){
 //Slider Functionality
 mySlider.oninput = function() {
     const sliderValue = document.querySelector(".sliderValue");
-    sliderValue.textContent = this.value;
+    sliderValue.textContent = `${this.value}x${this.value}`;
 
     container.innerHTML = '';
     createGrid(parseInt(sliderValue.textContent));
