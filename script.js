@@ -23,7 +23,6 @@ function createGrid(column){
                     event.target.style.cssText = `background-color:${bgColor};`;
                 }
             })
-            //cell.innerText = (j + 1);
             container.appendChild(cell);
         }
        
@@ -47,7 +46,8 @@ function changeByValue(id){
         isRainbow = false;
         bgColor = "transparent";
     } else if(id === "clear"){
-        makeGridTransparent();
+        container.innerHTML = "";
+        createGrid(mySlider.value);
     }
 }
 
