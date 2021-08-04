@@ -2,36 +2,36 @@
 
 let bgColor = "rgb(0,0,0)";
 let isRainbow = false;
+const container = document.querySelector(".sketch-container");
+const mySlider = document.querySelector("#myRange");
+createGrid(mySlider.value);
 
 function createGrid(column){
-    const container = document.querySelector(".sketch-container");
-    container.style.cssText = `display:grid;grid-template-columns:repeat(${column},1fr);grid-template-rows:repeat(${column} ,1fr);`;
+   
+    container.style.gridTemplateColumns = `repeat(${column}, 1fr)`;
+    container.style.gridTemplateRows = `repeat(${column}, 1fr)`;
     for (c = 0; c < (column); c++) {
 
         for(let j =0;j<column;j++){
             let cell = document.createElement("div");
-            cell.innerText = (j + 1);
-            container.appendChild(cell).className = "grid-item";
+            cell.addEventListener('mouseover',function(event){
+                if(isRainbow ===true){
+                    bgColor = assignRandomRGB();
+                    event.target.style.cssText = `background-color:${bgColor};`;
+                }
+                else{
+                    event.target.style.cssText = `background-color:${bgColor};`;
+                }
+            })
+            //cell.innerText = (j + 1);
+            container.appendChild(cell);
         }
        
       };
 }
 
-createGrid(4);
 
-const gridItem = document.querySelectorAll(".grid-item");
-//gridItem.forEach(item => item.style.cssText = "border:1px solid black;")
-gridItem.forEach(item => item.addEventListener("mouseover", function(event){
-    if(isRainbow ===true){
-        bgColor = assignRandomRGB();
-        event.target.style.cssText = `background-color:${bgColor};`;
-    }
-    else{
-        event.target.style.cssText = `background-color:${bgColor};`;
-    }
-    
-}))
-
+//Decide input of the buttons
 const menu = document.querySelector(".menu");
 menu.addEventListener('click', function(event){
     changeByValue(event.target.id);
@@ -51,6 +51,7 @@ function changeByValue(id){
     }
 }
 
+
 function makeGridTransparent(){
     const clearGridItem = document.querySelectorAll(".grid-item");
     clearGridItem.forEach(item => item.style.cssText = "background-color:transparent;")
@@ -62,4 +63,14 @@ function assignRandomRGB(){
   var g = num >> 8 & 255;
   var b = num & 255;
   return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+}
+
+
+//Slider Functionality
+mySlider.oninput = function() {
+    const sliderValue = document.querySelector(".sliderValue");
+    sliderValue.textContent = this.value;
+
+    container.innerHTML = '';
+    createGrid(parseInt(sliderValue.textContent));
 }
